@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Vocanic\\": "src/Vocanic/",
+      "Vocanic\\": "src/Vocanic/"
     }
   }
 }
