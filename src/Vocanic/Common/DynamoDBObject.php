@@ -4,7 +4,6 @@
  */
 namespace Vocanic\Common;
 
-use Aws\Common\Enum\Region;
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 use Aws\DynamoDb\Exception\ResourceNotFoundException;
@@ -33,7 +32,7 @@ abstract class DynamoDBObject implements PersistentObject {
 	protected static $MARSHALER;
 
 
-	private static $AWS_REGION = Region::SINGAPORE;
+	private static $AWS_REGION = 'ap-southeast-1';
 
 
 	protected static $FIELDS = array();
@@ -108,7 +107,8 @@ abstract class DynamoDBObject implements PersistentObject {
                             'secret' => $awsSecret,
                     ),
                 'region' => $region, #replace with your desired region
-                'endpoint' => 'http://127.0.0.1:8000'
+                'endpoint' => 'http://127.0.0.1:8000',
+                'version' => AWS_CLIENT_VERSION
             ));
             error_log("Creating Dynamo DB local test db connection");
         }else{
@@ -117,7 +117,8 @@ abstract class DynamoDBObject implements PersistentObject {
                             'key'    => $awsKey,
                             'secret' => $awsSecret,
                     ),
-                    'region' => $region
+                    'region' => $region,
+                'version' => AWS_CLIENT_VERSION
             ));
         }
 
@@ -263,8 +264,6 @@ abstract class DynamoDBObject implements PersistentObject {
 				$data[$field] = $this->$field;
 			}
 		}
-
-		error_log(print_r($data,true));
 
 		try{
 			$response = $this->db->putItem(array(
