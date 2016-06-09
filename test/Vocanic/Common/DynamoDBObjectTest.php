@@ -8,7 +8,6 @@ if(!class_exists("TestTemplate")) {
 }
 
 class DynamoDBObjectTest extends \TestTemplate{
-
 	var $obj = null;
 	public $client = 'vocanic';
 
